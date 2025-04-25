@@ -1,12 +1,11 @@
-import { useState } from 'react'
-import InvoiceView from './components/InvoiceView'
-import InvoiceEdit from './components/InvoiceEdit'
-import InvoiceList from './components/InvoiceList'
-import { Moon, Sun } from 'lucide-react'
+import InvoiceList from "./components/InvoiceList"
+
 
 function App() {
   return (
- <h1>hi</h1>
+   <div>
+    <InvoiceList/>
+   </div>
   )
 }
 
