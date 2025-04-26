@@ -1,17 +1,9 @@
-import InvoiceList from "./components/InvoiceList"
 import { useState } from 'react';
 import InvoiceView from './components/InvoiceView';
 import InvoiceEdit from './components/InvoiceEdit';
 import InvoiceList from './components/InvoiceList';
 import { Moon, Sun } from 'lucide-react';
 
-function App() {
-  return (
-   <div>
-    <InvoiceList/>
-   </div>
-  )
-}
 
 function App() {
   const [isEditing, setIsEditing] = useState(false);
