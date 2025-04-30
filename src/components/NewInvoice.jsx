@@ -23,8 +23,6 @@ export default function NewInvoice({ onClose, onSubmit, darkMode, setDarkMode  }
   const addNewItem = () => {
     setItems(prevItems => {
       const newItems = [{ name: "", quantity: "", price: "" }, ...prevItems];
-      console.log(newItems);  // Check the updated list in the console
-      return newItems;
     });
   };
   
