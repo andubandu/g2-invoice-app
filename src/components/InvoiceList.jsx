@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import NewInvoice from "./NewInvoice";
-import EditInvoice from "./EditInvoice";
 import Sidebar from "./Slidbar";
-import invoicesData from "../invoices.json";
+import invoicesData from "../invois.json";
+import InvoiceDetail from "./InvoisDetal";
 
 export default function InvoiceList() {
   const [showModal, setShowModal] = useState(false);
@@ -11,10 +11,10 @@ export default function InvoiceList() {
   const [selectedStatus, setSelectedStatus] = useState("All");
   const [invoices, setInvoices] = useState([]);
   const [editingInvoice, setEditingInvoice] = useState(null);
+  const [selectedInvoice, setSelectedInvoice] = useState(null); 
 
   useEffect(() => {
     const storedInvoices = JSON.parse(localStorage.getItem("invoices"));
-    
     if (storedInvoices && storedInvoices.length > 0) {
       setInvoices(storedInvoices);
     } else {
@@ -24,7 +24,7 @@ export default function InvoiceList() {
 
   useEffect(() => {
     if (invoices.length > 0) {
-      localStorage.setItem("invoices", JSON.stringify(invoices)); 
+      localStorage.setItem("invoices", JSON.stringify(invoices));
     }
   }, [invoices]);
 
@@ -64,9 +64,22 @@ export default function InvoiceList() {
         Draft: "bg-gray-100 text-gray-600",
       };
 
+  if (selectedInvoice) {
+    return (
+      <InvoiceDetail
+        invoice={selectedInvoice}
+        onBack={() => setSelectedInvoice(null)}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+      />
+    );
+  }
+
   return (
     <div
-      className={`transition-colors duration-300 ${darkMode ? "bg-black text-white" : "bg-gray-50 text-black"}`}
+      className={`transition-colors duration-300 ${
+        darkMode ? "bg-black text-white" : "bg-gray-50 text-black"
+      }`}
     >
       <Sidebar darkMode={darkMode} setDarkMode={setDarkMode} />
 
@@ -108,13 +121,13 @@ export default function InvoiceList() {
             {filteredInvoices.map((invoice, idx) => (
               <div className="flex justify-center px-[50px] lg:px-[300px]" key={idx}>
                 <div
-                  className={`w-full max-w-[1400px] p-4 sm:p-6 rounded-xl shadow flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 transition-all duration-300 ${
+                  className={`w-full  max-w-[1400px] p-4 sm:p-6 rounded-xl shadow flex flex-col sm:flex-row sm:justify-between sm:items-center  transition-all duration-300 ${
                     darkMode ? "bg-[#1E2139]" : "bg-white"
                   } hover:shadow-lg hover:border hover:border-purple-500 hover:scale-105`}
                 >
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 hover:border-purple-500">
                     <span className="font-bold text-indigo-500">{invoice.id}</span>
-                    <span className="text-sm">{`Due ${invoice.dueDate}`}</span>
+                    <span className="text-sm">Due {invoice.dueDate}</span>
                     <span className="font-medium">{invoice.client}</span>
                   </div>
 
@@ -131,12 +144,11 @@ export default function InvoiceList() {
                     </span>
                     <button
                       onClick={() => {
-                        setEditingInvoice(invoice);
-                        setShowEditModal(true);
+                        setSelectedInvoice(invoice); 
                       }}
                       className="text-purple-500 text-xl"
                     >
-                      &gt; Edit
+                      &gt;
                     </button>
                   </div>
                 </div>
@@ -153,15 +165,7 @@ export default function InvoiceList() {
             />
           )}
 
-          {showEditModal && editingInvoice && (
-            <EditInvoice
-              invoice={editingInvoice}
-              onClose={() => setShowEditModal(false)}
-              onSave={handleEditInvoice}
-              darkMode={darkMode}
-              setDarkMode={setDarkMode}
-            />
-          )}
+      
         </div>
       </div>
     </div>

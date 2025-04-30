@@ -26,9 +26,14 @@ export default function NewInvoice({ onClose, onSubmit, darkMode, setDarkMode })
   const [errors, setErrors] = useState({});
 
   const addNewItem = () => {
-    setItems([...items, { name: "", quantity: "", price: "" }]);
+    setItems(prevItems => {
+      const newItems = [{ name: "", quantity: "", price: "" }, ...prevItems];
+      console.log(newItems);  // Check the updated list in the console
+      return newItems;
+    });
   };
-
+  
+  
   const removeItem = (index) => {
     const updated = [...items];
     updated.splice(index, 1);
