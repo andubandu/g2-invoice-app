@@ -1,0 +1,30 @@
+[
+  {
+    "number": "INV-001",
+    "date": "27 Aug 2023",
+    "dueDate": "28 Sep 2023",
+    "client": {
+      "name": "Alex Ahrens",
+      "email": "design@email.com"
+    },
+    "items": [
+      { "id": 1, "description": "Banner Design", "quantity": 1, "price": 556.00 },
+      { "id": 2, "description": "Email Design", "quantity": 1, "price": 556.00 }
+    ],
+    "total": 556.00
+  },
+  {
+    "number": "INV-002",
+    "date": "01 Sep 2023",
+    "dueDate": "01 Oct 2023",
+    "client": {
+      "name": "John Doe",
+      "email": "john@email.com"
+    },
+    "items": [
+      { "id": 1, "description": "Logo Design", "quantity": 1, "price": 300.00 },
+      { "id": 2, "description": "Website Design", "quantity": 1, "price": 1200.00 }
+    ],
+    "total": 1500.00
+  }
+]
