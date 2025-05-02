@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NewInvoice from "./NewInvoice";
 import Sidebar from "./Slidbar";
-import InvoiceDetail from "./InvoisDetal";
+import InvoiceDetail from "./InvoisDetal"; // Ensure this path is correct
 import useInvoices from "../hooks/useInvoices";
 
 export default function InvoiceList() {
@@ -18,8 +18,12 @@ export default function InvoiceList() {
     addInvoice(newInvoice);
   };
 
-  const handleEditInvoice = (updatedInvoice) => {
-    updateInvoice(updatedInvoice);
+  const handleEditInvoice = (data) => {
+    if (data.delete && data.id) {
+      deleteInvoice(data.id);
+    } else {
+      updateInvoice(data);
+    }
     setShowEditModal(false);
   };
 
@@ -47,15 +51,15 @@ export default function InvoiceList() {
         onBack={() => setSelectedInvoice(null)}
         darkMode={darkMode}
         setDarkMode={setDarkMode}
+        onUpdateInvoice={handleEditInvoice}
+        onDeleteInvoice={deleteInvoice} // ✅ added line
       />
     );
   }
 
   return (
     <div
-      className={`transition-colors duration-300 ${
-        darkMode ? "bg-black text-white" : "bg-gray-50 text-black"
-      }`}
+      className={`transition-colors duration-300 ${darkMode ? "bg-black text-white" : "bg-gray-50 text-black"}`}
     >
       <Sidebar darkMode={darkMode} setDarkMode={setDarkMode} />
 
@@ -73,9 +77,7 @@ export default function InvoiceList() {
                 value={selectedStatus}
                 onChange={(e) => setSelectedStatus(e.target.value)}
                 className={`custom-mt border rounded px-3 py-2 text-sm w-full sm:w-auto ${
-                  darkMode
-                    ? "bg-[#1E2139] text-white border-gray-600"
-                    : "bg-white text-black border-gray-300"
+                  darkMode ? "bg-[#1E2139] text-white border-gray-600" : "bg-white text-black border-gray-300"
                 }`}
               >
                 <option value="All">Filter by status</option>
