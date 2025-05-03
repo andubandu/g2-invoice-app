@@ -34,7 +34,7 @@ export default function InvoiceDetail({
   const handleDeleteConfirm = () => {
     onDeleteInvoice(invoice.id);
     setShowDeleteConfirm(false);
-    onBack(); // return to the invoice list
+    onBack(); 
   };
 
   return (
@@ -63,11 +63,11 @@ export default function InvoiceDetail({
           />
         ) : (
           <div className="flex justify-center">
-            <div
-              className={`w-full flex max-w-4xl rounded-lg p-10 shadow-sm ${
-                darkMode ? "bg-[#1E2139] text-white" : "bg-white text-[#0C0E16]"
-              }`}
-            >
+             <div
+            className={`w-full flex flex-col lg:flex-row justify-between items-center max-w-4xl rounded-lg p-6 sm:p-8 md:p-10 shadow-sm ${
+              darkMode ? "bg-[#1E2139] text-white" : "bg-white text-[#0C0E16]"
+            }`}
+          >
               <p>
                 <span className="text-gray-500">Status</span>
                 <span
@@ -85,7 +85,7 @@ export default function InvoiceDetail({
 
               <button
                 onClick={handleEditClick}
-                className="bg-[#F9FAFE] rounded-[20px] w-[80px] p-[10px] ml-[300px]"
+                className="bg-[#F9FAFE] text-black rounded-[20px] w-[80px] p-[10px] ml-[300px]"
               >
                 Edit
               </button>
@@ -129,7 +129,20 @@ export default function InvoiceDetail({
                   {invoice.amount}
                 </p>
               </div>
-
+              <div className={`mt-[50px] rounded-[10px] p-[30px] ${darkMode ? "bg-[#252945] text-white" : "bg-[#F9FAFE] text-black"}`}>
+  <div className="grid grid-cols-4 font-semibold text-sm pb-2">
+    <span>Item Name</span>
+    <p><span className="text-center ml-[40%]">QTY.</span></p>
+    <span className="text-center">Price</span>
+    <span className="text-right">Total</span>
+  </div>
+  <div className="grid grid-cols-4 font-semibold text-sm pb-2">
+    <span>{invoice.client}</span>
+    <p className="text-center">{invoice.price}</p>
+    <span className="text-center">{invoice.price}</span>
+    <span className="text-right">{invoice.amount}</span>
+  </div>
+</div>
               <div className="mt-10 bg-[#373B53] text-white rounded-lg px-6 py-4 flex justify-between items-center">
                 <span className="text-sm">Amount Due</span>
                 <span className="text-2xl font-bold">£{invoice.amount}</span>

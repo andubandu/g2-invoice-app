@@ -7,10 +7,32 @@ export default function useInvoices() {
   // Load invoices from local storage or fallback to default data
   useEffect(() => {
     const storedInvoices = localStorage.getItem("invoices");
+
     if (storedInvoices) {
-      const parsedInvoices = JSON.parse(storedInvoices);
-      const mergedInvoices = [...invoisData, ...parsedInvoices.filter((stored) => !invoisData.some((data) => data.id === stored.id))];
-      setInvoices(mergedInvoices);
+      let parsedInvoices;
+
+      try {
+        parsedInvoices = JSON.parse(storedInvoices);
+      } catch (err) {
+        console.error("Failed to parse stored invoices:", err);
+        parsedInvoices = [];
+      }
+
+      if (Array.isArray(parsedInvoices)) {
+        const mergedInvoices = [
+          ...invoisData.filter(Boolean),
+          ...parsedInvoices.filter(
+            (stored) =>
+              stored &&
+              !invoisData.some(
+                (data) => data && data.id === stored.id
+              )
+          ),
+        ];
+        setInvoices(mergedInvoices);
+      } else {
+        setInvoices(invoisData);
+      }
     } else {
       setInvoices(invoisData);
     }
@@ -28,12 +50,16 @@ export default function useInvoices() {
 
   const updateInvoice = (updatedInvoice) => {
     setInvoices((prev) =>
-      prev.map((invoice) => (invoice.id === updatedInvoice.id ? updatedInvoice : invoice))
+      prev.map((invoice) =>
+        invoice.id === updatedInvoice.id ? updatedInvoice : invoice
+      )
     );
   };
 
   const deleteInvoice = (id) => {
-    setInvoices((prev) => prev.filter((invoice) => invoice.id !== id));
+    setInvoices((prev) =>
+      prev.filter((invoice) => invoice.id !== id)
+    );
   };
 
   return { invoices, addInvoice, updateInvoice, deleteInvoice };
