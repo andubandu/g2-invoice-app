@@ -138,8 +138,8 @@ export default function InvoiceDetail({
   </div>
   <div className="grid grid-cols-4 font-semibold text-sm pb-2">
     <span>{invoice.client}</span>
-    <p className="text-center">{invoice.price}</p>
-    <span className="text-center">{invoice.price}</span>
+    <p className="text-center">{invoice.items[0].quantity}</p>
+    <span className="text-center">£ {invoice.items[0].price}</span>
     <span className="text-right">{invoice.amount}</span>
   </div>
 </div>
