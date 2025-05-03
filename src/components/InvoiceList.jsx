@@ -96,50 +96,62 @@ export default function InvoiceList() {
           </div>
 
           <div className="space-y-4">
-            {filteredInvoices.map((invoice, idx) => (
-              <div
-                className="flex justify-center px-[50px] lg:px-[300px]"
-                key={idx}
-              >
-                <div
-                  className={`w-full max-w-[1400px] p-4 sm:p-6 rounded-xl shadow flex flex-col sm:flex-row sm:justify-between sm:items-center transition-all duration-300 ${
-                    darkMode ? "bg-[#1E2139]" : "bg-white"
-                  } hover:shadow-lg hover:border hover:border-purple-500 hover:scale-105`}
-                >
-                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 hover:border-purple-500">
-                    <span className="font-bold text-indigo-500">
-                      {invoice.id}
-                    </span>
-                    <span className="text-sm">Due {invoice.dueDate}</span>
-                    <span className="font-medium">{invoice.client}</span>
-                  </div>
-
-                  <div className="flex items-center gap-4">
-                    {invoice.amount && (
-                      <span className="font-semibold p-[5px]">
-                        {invoice.amount}
-                      </span>
-                    )}
-                    <span
-                      className={`p-[10px] w-[100px] rounded text-sm font-semibold ${
-                        statusStyles[invoice.status]
-                      }`}
-                    >
-                      <li>{invoice.status}</li>
-                    </span>
-                    <button
-                      onClick={() => {
-                        setSelectedInvoice(invoice);
-                      }}
-                      className="text-purple-500 text-xl"
-                    >
-                      &gt;
-                    </button>
-                  </div>
-                </div>
-              </div>
-            ))}
+  {filteredInvoices.length === 0 ? (
+    <div className="text-center justify-center text-gray-500 text-lg mt-[200px]">
+      <div className="flex justify-center ">
+      <img src="/assets/icon5.png" alt="" />
+      </div>
+      <h1>There is nothing here</h1>
+      <p>  Create an invoice by clicking the 
+      New Invoice button and get started</p>
+    </div>
+  ) : (
+    filteredInvoices.map((invoice, idx) => (
+      <div
+        className="flex justify-center px-[50px] lg:px-[300px]"
+        key={idx}
+      >
+        <div
+          className={`w-full max-w-[1400px] p-4 sm:p-6 rounded-xl shadow flex flex-col sm:flex-row sm:justify-between sm:items-center transition-all duration-300 ${
+            darkMode ? "bg-[#1E2139]" : "bg-white"
+          } hover:shadow-lg hover:border hover:border-purple-500 hover:scale-105`}
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 sm:gap-4 hover:border-purple-500">
+            <span className="font-bold text-indigo-500">
+              {invoice.id}
+            </span>
+            <span className="text-sm">Due {invoice.dueDate}</span>
+            <span className="font-medium">{invoice.client}</span>
           </div>
+
+          <div className="flex items-center gap-4">
+            {invoice.amount && (
+              <span className="font-semibold p-[5px]">
+                {invoice.amount}
+              </span>
+            )}
+            <span
+              className={`p-[10px] w-[100px] rounded text-sm font-semibold ${
+                statusStyles[invoice.status]
+              }`}
+            >
+              <li>{invoice.status}</li>
+            </span>
+            <button
+              onClick={() => {
+                setSelectedInvoice(invoice);
+              }}
+              className="text-purple-500 text-xl"
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
+      </div>
+    ))
+  )}
+</div>
+
 
           {showModal && (
             <NewInvoice
