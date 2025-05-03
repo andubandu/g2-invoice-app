@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Sidebar from "./Slidbar";
 import EditInvoice from "./EditInvoice";
-import ConfirmationModal from "./ConfirmationModal"; // make sure this is imported
+import ConfirmationModal from "./ConfirmationModal"; 
 
 export default function InvoiceDetail({
   invoice,
@@ -138,8 +138,8 @@ export default function InvoiceDetail({
   </div>
   <div className="grid grid-cols-4 font-semibold text-sm pb-2">
     <span>{invoice.client}</span>
-    <p className="text-center">{invoice.price}</p>
-    <span className="text-center">{invoice.price}</span>
+    <p className="text-center">{invoice.items[0].quantity}</p>
+    <span className="text-center">£ {invoice.items[0].price}</span>
     <span className="text-right">{invoice.amount}</span>
   </div>
 </div>
@@ -151,10 +151,9 @@ export default function InvoiceDetail({
           </div>
         )}
 
-        {/* Confirmation Modal */}
         {showDeleteConfirm && (
           <ConfirmationModal
-            invoice={invoice} // ✅ this is what shows the ID
+            invoice={invoice} 
             onCancel={() => setShowDeleteConfirm(false)}
             onConfirm={handleDeleteConfirm}
           />

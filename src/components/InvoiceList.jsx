@@ -52,7 +52,7 @@ export default function InvoiceList() {
         darkMode={darkMode}
         setDarkMode={setDarkMode}
         onUpdateInvoice={handleEditInvoice}
-        onDeleteInvoice={deleteInvoice} // ✅ added line
+        onDeleteInvoice={deleteInvoice} 
       />
     );
   }
