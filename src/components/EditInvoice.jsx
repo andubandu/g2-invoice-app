@@ -4,7 +4,7 @@ import Sidebar from "./Slidbar";
 export default function EditInvoice({ invoice, onClose, onSubmit, darkMode, setDarkMode }) {
   const [items, setItems] = useState([]);
   const [formData, setFormData] = useState({});
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false); // ✅ Added
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   useEffect(() => {
     if (invoice) {
@@ -70,7 +70,6 @@ export default function EditInvoice({ invoice, onClose, onSubmit, darkMode, setD
         >
           <h2 className="text-xl font-bold mb-4">Edit Invoice</h2>
           <form onSubmit={handleSubmit}>
-            {/* ... Your existing form fields remain unchanged ... */}
 
             <div className="mt-4">
               <p className="font-semibold mb-2">Item List</p>
@@ -115,7 +114,6 @@ export default function EditInvoice({ invoice, onClose, onSubmit, darkMode, setD
               </button>
             </div>
 
-            {/* ✅ Buttons */}
             <div className="flex justify-between mt-6">
               <button
                 type="button"
@@ -144,7 +142,6 @@ export default function EditInvoice({ invoice, onClose, onSubmit, darkMode, setD
         </div>
       </div>
 
-      {/* ✅ Delete Confirmation Modal */}
       {showDeleteConfirm && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className={`p-6 rounded-lg shadow-lg max-w-sm w-full ${darkMode ? 'bg-[#1E2139] text-white' : 'bg-white text-black'}`}>
